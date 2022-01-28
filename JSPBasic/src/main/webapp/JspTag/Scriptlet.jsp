@@ -22,9 +22,9 @@
 	(javascript의 docoument.write()와 같은 역할) -->
 	<h2>구구단 2단</h2>
 	<% for(int i = 2; i < 10; i++) {
-		for(int j = 1; j <10; j++) {
-		out.println(i + " * " + j + " = " + i*j); %>
-	<br/>
-	<% } } %>	
+		for(int j = 2; j <10; j++) {
+		out.println(i + " * " + j + " = " + i*j + "<br/>"); 
+		} 
+	} %>	
 </body>
 </html>
