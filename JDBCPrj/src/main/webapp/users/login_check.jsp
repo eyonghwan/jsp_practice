@@ -33,9 +33,9 @@
 		//    DB에 적재되어있던 비밀번호를 마저 사용자 입력 비밀번호와 비교해 다 일치하면 세션 발급
 		//    그렇지 않다면 로그인에 실패했습니다. 메세지가 뜨도록 처리
 		while(rs.next()) {
-			if(id.equals(rs.getString(2))) {
-				if(pw.equals(rs.getString(3))) {
-					String name = rs.getString(1);
+			if(id.equals(rs.getString("uid"))) {
+				if(pw.equals(rs.getString("upw"))) {
+					String name = rs.getString("uname");
 					session.setAttribute("session_id", id);
 					session.setAttribute("session_pw", pw);
 					session.setAttribute("session_name", name);
@@ -46,6 +46,9 @@
 		// 5. 만약 웬컴페이지도 만들 여력이 되신다면
 		//    로그인 이후 리다이렉트로 넘겨서
 		//    이름(아이디) 님 로그인을 환영합니다. 라는 문장이 뜨는 login_welcome.jsp까지 구현해주세요.
+		
+		con.close();
+		pstmt.close();
 		
 	} catch(Exception e) {
 		e.printStackTrace();
