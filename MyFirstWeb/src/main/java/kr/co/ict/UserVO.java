@@ -44,6 +44,10 @@ public class UserVO {
 		this.uEmail = uEmail;
 	}
 	
-	// 3. (선택) 
+	// 3. (선택)toString을 만들어주세요.	
+	@Override
+	public String toString() {
+		return "UserVO [uName=" + uName + ", uId=" + uId + ", uPw=" + uPw + ", uEmail=" + uEmail + "]";
+	}
 
 }

@@ -1,14 +1,15 @@
+<%@page import="kr.co.ict.UserVO"%>
+<%@page import="kr.co.ict.UserDAO"%>
 <%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	// 1. 세션에서 아이디를 얻어옵니다. 세션 결과값이 null이면 login_form.jsp로 이동
 	String id = (String)session.getAttribute("session_id");
-	String name = null;
-	String email= null;
 	if(id==null) {
 		response.sendRedirect("login_form.jsp");
 	}
+	/*
 	// 2. DB연결
 	String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -40,8 +41,13 @@
 	} finally {
 		
 	}
+	*/
 	// 5. 하단 form의 value에 해당 변수에 든 값이 들어가도록 설정합니다.
-
+	
+	UserDAO userDao = new UserDAO();
+	UserVO userData = userDao.getUserData(id);
+	String name = userData.getuName();
+	String email = userData.getuEmail();
 %>
 <!DOCTYPE html>
 <html>
