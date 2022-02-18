@@ -1,3 +1,5 @@
+<%@page import="kr.co.ict.UserVO"%>
+<%@page import="kr.co.ict.UserDAO"%>
 <%@ page import = "java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,7 +10,7 @@
 	
 	System.out.println(id);
 	System.out.println(pw);
-	
+	/* 
 	// DB 연결을 위한 변수선언
 	String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -53,7 +55,20 @@
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
-		
+	*/
+	UserDAO userdao = new UserDAO();
+	UserVO uservo = userdao.getUserData(id);
+	
+	if(id.equals(uservo.getuId())) {
+		if(pw.equals(uservo.getuPw())) {
+			String name = uservo.getuName();
+			session.setAttribute("session_id", id);
+			session.setAttribute("session_pw", pw);
+			session.setAttribute("session_name", name);
+			response.sendRedirect("login_welcome.jsp");
+		}
+	}
+	
 %>
 <!DOCTYPE html>
 <html>

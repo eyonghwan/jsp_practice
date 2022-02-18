@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	if(request.isRequestedSessionIdValid()) {
+	String id = (String)session.getAttribute("session_id");
+	if(id != null) {
 		response.sendRedirect("login_welcome.jsp");
 	}
 %>

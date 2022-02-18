@@ -46,12 +46,14 @@
 	
 	UserDAO userDao = new UserDAO();
 	UserVO userData = userDao.getUserData(id);
-	String name = userData.getuName();
-	String email = userData.getuEmail();
 %>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -64,8 +66,8 @@
 	<h1> <%=id %>님의 정보 수정 페이지</h1>
 	<form action="update_check.jsp" method="post">
 	비밀번호 : <input type="password" name="pw" required><br/>
-	이름 : <input type="text" name="name" value=<%=name %> required><br/>
-	이메일 : <input type="email" name="email" value=<%=email %>><br/>
+	이름 : <input type="text" name="name" value=<%=userData.getuName() %> required><br/>
+	이메일 : <input type="email" name="email" value=<%=userData.getuEmail() %>><br/>
 	<input type="submit" value="수정하기">
 	<input type="reset" value="초기화">
 	</form>
