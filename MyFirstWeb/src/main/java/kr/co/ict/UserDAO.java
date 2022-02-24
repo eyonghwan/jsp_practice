@@ -120,4 +120,96 @@ public class UserDAO {
 		return userData; // DB에서 UserVO에 데이터를 받아주신 다음 null 대신 받아온 데이터를 리턴하세요.
 	}
 	
+	// updateCHeck에 필요한 userUpdate메서드를 아래에 정의해주세요.
+	// UPADTE구문을 실행하기 때문에 리턴 자료가 필요없고
+	// update_check.jsp에 있는 쿼리문을 실행하기 위해
+	// id, pw, name, email정보를 모두 받아옵니다.
+	
+	public void userUpdate(String id, String pw, String name, String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			
+			String sql = "UPDATE userinfo SET upw = ?, uname = ?, uemail = ? WHERE uid=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, pw);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			pstmt.setString(4, id);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void deleteUser(String id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			
+			String sql = "DELETE FROM userinfo WHERE uid=?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void insertUser(String id, String pw, String name, String email) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			
+			String sql = "INSERT INTO userinfo VALUES(?, ?, ?, ?)";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, name);
+			pstmt.setString(2, id);
+			pstmt.setString(3, pw);
+			pstmt.setString(4, email);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		
+	}
+	
 }

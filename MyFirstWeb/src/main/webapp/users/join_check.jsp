@@ -1,3 +1,4 @@
+<%@page import="kr.co.ict.UserDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.sql.*" %>
@@ -11,7 +12,7 @@
 	
 	// 위의 사용자가 입력한 데이터를 토대로
 	// 스크립트릿 내부에서 DB연동을 한 다음 INSERT 구문을 실행하다록 만들면 회원가입 절가 구현 가능
-	
+	/*
 	try {
 		String dbType = "com.mysql.cj.jdbc.Driver";
 		String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -44,6 +45,11 @@
 	// 4. out.println("회원가입이 완료되었습니다."); 띄워서 가입완료 알리기.
 	out.println("회원가입이 완료되었습니다.");
 	}
+	*/
+	
+	UserDAO userdao = new UserDAO();
+	userdao.insertUser(id, pw, name, email);
+	
 %>
 <!DOCTYPE html>
 <html>

@@ -1,3 +1,4 @@
+<%@page import="kr.co.ict.UserDAO"%>
 <%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,7 +10,11 @@
 	String email = request.getParameter("email");
 	// 2. session에 저장된 아이디를 변수로 저장해주세요.
 	String id = (String)session.getAttribute("session_id");
+	if(id == null) {
+		response.sendRedirect("login_form.jsp");
+	}
 	
+	/*
 	// 3. DB접속정보 변수로 관리
 	String dbType = "com.mysql.cj.jdbc.Driver";
 	String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -38,6 +43,9 @@
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
+	*/
+	UserDAO userdao = new UserDAO();
+	userdao.userUpdate(id, pw, name, email);
 	// 7. body태그에 XXX 회원님의 정보가 수정되었습니다. 라고 안내해주기
 	// 웰컴페이지로 돌아갈 수 있는 링크 넣어주기.
 %>

@@ -1,4 +1,5 @@
-<%@ page import="java.sql.*" %>
+<%@page import="kr.co.ict.UserDAO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -11,7 +12,8 @@
 	if(uId == null) {
 		response.sendRedirect("login_form.jsp");
 	}
-
+	
+	/*
 	try {
 		String dbType = "com.mysql.cj.jdbc.Driver";
 		String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
@@ -35,6 +37,10 @@
 	} catch(Exception e) {
 		e.printStackTrace();
 	}
+	*/
+	
+	UserDAO userdao = new UserDAO();
+	userdao.deleteUser(uId);
 	
 	session.invalidate();
 	response.sendRedirect("login_form.jsp");
