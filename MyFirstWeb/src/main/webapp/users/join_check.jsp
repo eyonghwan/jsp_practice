@@ -47,7 +47,7 @@
 	}
 	*/
 	
-	UserDAO userdao = new UserDAO();
+	UserDAO userdao = UserDAO.getInstance();
 	userdao.insertUser(id, pw, name, email);
 	
 %>

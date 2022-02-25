@@ -44,7 +44,7 @@
 	*/
 	// 5. 하단 form의 value에 해당 변수에 든 값이 들어가도록 설정합니다.
 	
-	UserDAO userDao = new UserDAO();
+	UserDAO userDao = UserDAO.getInstance();
 	UserVO userData = userDao.getUserData(id);
 %>
 <!DOCTYPE html>

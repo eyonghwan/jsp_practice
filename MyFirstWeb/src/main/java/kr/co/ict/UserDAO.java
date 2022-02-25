@@ -1,30 +1,62 @@
 package kr.co.ict;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 // DAO 클래스는 DB연동을 전담하여 처리합니다.
 public class UserDAO {
 	
 	// DB접속에 필요한 변수들을 아래에 선언합니다.
-	private String dbType = "com.mysql.cj.jdbc.Driver";
-	private String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
-	private String dbId = "root";
-	private String dbPw = "mysql";
+	// private String dbType = "com.mysql.cj.jdbc.Driver";
+	// private String dbUrl = "jdbc:mysql://localhost:3306/jdbcprac1";
+	// private String dbId = "root";
+	// private String dbPw = "mysql";
+	private DataSource ds = null;
 	
 	// 생성할 때 자동으로 Class.forName()을 실행하게 만듭니다.
 	// 어떤 쿼리구문을 실행하더라도 공통적으로 활용하는 부분
+	/*
 	public UserDAO() {
 		try {
 			Class.forName(dbType);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}	
+	}
+	*/
+	
+	// 싱글턴 패턴 처리
+	// 3. DAO 내부에 멤버변수로 UserDAO를 하나 생성해줍니다.
+	private static UserDAO userdao = new UserDAO();
+	
+	// 싱글턴 요청시마다 DAO를 매번 새로 생성하지 않고, 먼저 하나를 생성해둔 다음
+	// 사용자 요청때는 이미 생성된 DAO의 주소값마 공유해서
+	// DAO생성에 필요한 시간을 정략하기 위해 사용합니다.
+	// 1. 생성자는 private으로 처리해 외부에서 생성명령을 내릴 수 없게 처리합니다.
+	private UserDAO() {
+		try {
+			Context ct = new InitialContext();
+			ds = (DataSource)ct.lookup("java:comp/env/jdbc/mysql");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 2. static 키워드를 이용해서 단 한 번만 생성하고, 그 이후로는
+	// 주소를 공유하는 getInstance()메서드를 생성합니다.
+	public static UserDAO getInstance() {
+		if(userdao == null) {
+			userdao = new UserDAO();
+		}
+		return userdao;
 	}
 	
 	// user_list2.jsp의 코드 로직을 대체해보겠습니다.
@@ -41,7 +73,7 @@ public class UserDAO {
 		ArrayList<UserVO> userList = new ArrayList<>();
 		try {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
-			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();
 			
 			String sql = "SELECT * FROM userinfo";
 			pstmt = con.prepareStatement(sql);
@@ -87,7 +119,7 @@ public class UserDAO {
 		UserVO userData = new UserVO(null, null, null, null);
 		try {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
-			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();
 			
 			String sql = "SELECT * FROM userinfo WHERE uid=?";
 			pstmt = con.prepareStatement(sql);
@@ -130,7 +162,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();
 			
 			String sql = "UPDATE userinfo SET upw = ?, uname = ?, uemail = ? WHERE uid=?";
 			pstmt = con.prepareStatement(sql);
@@ -160,7 +192,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();
 			
 			String sql = "DELETE FROM userinfo WHERE uid=?";
 			pstmt = con.prepareStatement(sql);
@@ -187,7 +219,7 @@ public class UserDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(dbUrl, dbId, dbPw);
+			con = ds.getConnection();
 			
 			String sql = "INSERT INTO userinfo VALUES(?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);

@@ -39,7 +39,7 @@
 	}
 	*/
 	
-	UserDAO userdao = new UserDAO();
+	UserDAO userdao = UserDAO.getInstance();
 	userdao.deleteUser(uId);
 	
 	session.invalidate();

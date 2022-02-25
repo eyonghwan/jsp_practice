@@ -44,7 +44,7 @@
 		e.printStackTrace();
 	}
 	*/
-	UserDAO userdao = new UserDAO();
+	UserDAO userdao = UserDAO.getInstance();
 	userdao.userUpdate(id, pw, name, email);
 	// 7. body태그에 XXX 회원님의 정보가 수정되었습니다. 라고 안내해주기
 	// 웰컴페이지로 돌아갈 수 있는 링크 넣어주기.

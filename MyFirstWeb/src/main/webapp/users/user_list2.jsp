@@ -65,7 +65,7 @@
 		rs.close();
 	}
 	*/
-	UserDAO userDao = new UserDAO();
+	UserDAO userDao = UserDAO.getInstance();
 	List<UserVO> userList = userDao.getAllUserList();
 
 %>

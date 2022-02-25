@@ -56,7 +56,7 @@
 		e.printStackTrace();
 	}
 	*/
-	UserDAO userdao = new UserDAO();
+	UserDAO userdao = UserDAO.getInstance();
 	UserVO uservo = userdao.getUserData(id);
 	
 	if(id.equals(uservo.getuId())) {
