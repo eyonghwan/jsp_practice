@@ -8,12 +8,14 @@
 </head>
 <%
 	request.setCharacterEncoding("utf-8");
-	String name = request.getParameter("id");
-	String nickname = request.getParameter("nickname");
+	// String name = request.getParameter("id");
+	// String nickname = request.getParameter("nickname");
 %>
 <body>
+	<%-- 
 	이름 : <%=name %><br/>
 	별명 : <%=nickname %><br/>
+	 --%>
 ------------------------EL식 출력-------------------<br/>
 	이름 : ${param.id }
 	별명 : ${param.nickname }
