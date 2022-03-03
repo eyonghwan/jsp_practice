@@ -15,4 +15,5 @@
     <fullyQualifiedTypeName name="javax.naming.Context"/>
     <fullyQualifiedTypeName name="javax.naming.InitialContext"/>
     <fullyQualifiedTypeName name="javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 </qualifiedTypeNameHistroy>
