@@ -45,7 +45,7 @@ public class BoardDAO {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
 			con = ds.getConnection();
 			
-			String sql = "SELECT * FROM boardTbl";
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC";
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -152,5 +152,56 @@ public class BoardDAO {
 		return boarddata;
 	}
 
+	public void deleteBoard(int board_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "DELETE FROM boardTbl WHERE board_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
+	
+	public void updateBoard(int board_num, String title, String content) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "UPDATE boardTbl SET mdate=now(), title=?, content=? WHERE board_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, board_num);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+	}
 
 }

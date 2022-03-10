@@ -43,7 +43,6 @@ public class BoardDetailServlet extends HttpServlet {
 				"/board/boarddetail.jsp");
 		dp.forward(request, response);
 	
-	
 	}
 
 }
