@@ -9,7 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.ict.servlet.service.BoardDeleteService;
+import kr.co.ict.servlet.service.BoardDetailService;
+import kr.co.ict.servlet.service.BoardInsertService;
 import kr.co.ict.servlet.service.BoardListService;
+import kr.co.ict.servlet.service.BoardUpdateService;
+import kr.co.ict.servlet.service.BoardupdateFormService;
 import kr.co.ict.servlet.service.IBoardService;
 
 /**
@@ -60,9 +65,27 @@ public class FrontController extends HttpServlet {
 			sv.execute(request, response); // BoardListService의 execute는 게시글 목록을 가져옴
 			ui = "/board/boardlist.jsp"; // 포워딩 주소를 ui에 저장함
 		} else if(uri.equals("/MyFirstWeb/boardDetail.do")) {
-			sv = new BoardListService();
+			sv = new BoardDetailService();
 			sv.execute(request, response);
 			ui = "/board/boarddetail.jsp";
+		} else if(uri.equals("/MyFirstWeb/insertForm.do")) {
+			ui = "/board/boardform.jsp";
+		} else if(uri.equals("/MyFirstWeb/boardInsert.do")) {
+			sv = new BoardInsertService();
+			sv.execute(request, response);
+			ui = "/boardList.do";
+		} else if(uri.equals("/MyFirstWeb/boardDelete.do")) {
+			sv = new BoardDeleteService();
+			sv.execute(request, response);
+			ui = "/boardList.do";
+		} else if(uri.equals("/MyFirstWeb/boardUpdateForm.do")) {
+			sv = new BoardupdateFormService();
+			sv.execute(request, response);
+			ui = "/board/boardUpdateForm.jsp";
+		} else if(uri.equals("/MyFirstWeb/boardUpdate.do")) {
+			sv = new BoardUpdateService();
+			sv.execute(request, response);
+			ui = ("/boardDetail.do?board_num=" + request.getParameter("board_num"));
 		} else {
 			ui = "/";
 		}

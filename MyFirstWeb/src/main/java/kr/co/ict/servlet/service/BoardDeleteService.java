@@ -4,10 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.ict.BoardDAO;
-import kr.co.ict.BoardVO;
 
-public class BoardDetailService implements IBoardService{
-
+public class BoardDeleteService implements IBoardService{
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -15,11 +14,7 @@ public class BoardDetailService implements IBoardService{
 		
 		BoardDAO boarddao = BoardDAO.getInstance();
 		
-		BoardVO board = boarddao.getBoardDetail(board_num);
-			
-		request.setAttribute("board", board);
+		boarddao.deleteBoard(board_num);
 		
 	}
-	
-	
 }

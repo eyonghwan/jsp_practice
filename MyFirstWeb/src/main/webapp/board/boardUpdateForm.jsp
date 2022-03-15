@@ -8,7 +8,7 @@
 </head>
 <body>	
 	${board.title }
-	<form action="http://localhost:8181/MyFirstWeb/boardUpdate" method="post">
+	<form action="http://localhost:8181/MyFirstWeb/boardUpdate.do" method="post">
 		글제목 : <input type="text" name="title" value="${board.title }" >
 		글쓴이 : <input type="text" value="${board.writer }" readonly>
 		조회수 : ${board.hit }<br/>
