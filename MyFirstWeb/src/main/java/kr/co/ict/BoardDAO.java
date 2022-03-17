@@ -117,6 +117,7 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		BoardVO boarddata = null;
+		upHit(board_num);
 		try {
 			con = ds.getConnection();
 			
@@ -204,4 +205,31 @@ public class BoardDAO {
 		}
 	}
 
+	private void upHit(int board_num) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			
+			String sql = "UPDATE boardTbl SET hit = (hit + 1) WHERE board_num = ?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, board_num);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		System.out.println("현재 조회된 글 번호 : " + board_num);
+		
+	}
 }

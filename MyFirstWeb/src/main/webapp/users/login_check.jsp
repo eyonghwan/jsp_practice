@@ -65,7 +65,7 @@
 			session.setAttribute("session_id", id);
 			session.setAttribute("session_pw", pw);
 			session.setAttribute("session_name", name);
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("/MyFirstWeb/");
 		}
 	}
 	
