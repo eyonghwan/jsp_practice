@@ -47,7 +47,9 @@ public class BoardDAO {
 			con = ds.getConnection();
 			int limitNum = (pageNum - 1) * 10;
 			
+
 			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ?,20";
+
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, limitNum);
 			

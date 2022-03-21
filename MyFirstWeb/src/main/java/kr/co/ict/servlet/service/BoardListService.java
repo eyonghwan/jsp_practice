@@ -16,7 +16,8 @@ public class BoardListService implements IBoardService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		// 페이지 번호를 get방식으로 가져옵니다. 저장받아 주세요(?pageNum=번호형식)
+
+		// 페이지 번호를 get방식으로 가져옵니다. 저장받아 주세요.(?pageNum=번호 형식)
 		String strpageNum = request.getParameter("pageNum");
 		int pageNum = 1;
 		
@@ -34,7 +35,7 @@ public class BoardListService implements IBoardService{
 		// 2. BoardDAO의 getAllBoardList() 호출해 전체 게시글 정보 받아오기
 		List<BoardVO> boardList = boarddao.getAllBoardList(pageNum);
 		// 3. request.setAttribute로 바인딩하기
-		
+			
 		request.setAttribute("boardList", boardList);
 		
 		int boardCount = boarddao.getPageNum();
