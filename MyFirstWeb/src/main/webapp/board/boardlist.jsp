@@ -49,5 +49,6 @@
 	<c:if test="${sessionScope.session_id ne null}">
 		<a href="http://localhost:8181/MyFirstWeb/insertForm.do">글쓰기</a>
 	</c:if>
+	${dto }
 </body>
 </html>

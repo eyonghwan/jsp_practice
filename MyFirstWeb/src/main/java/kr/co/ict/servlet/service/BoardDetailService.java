@@ -15,6 +15,8 @@ public class BoardDetailService implements IBoardService{
 		
 		BoardDAO boarddao = BoardDAO.getInstance();
 		
+		boarddao.upHit(board_num);
+		
 		BoardVO board = boarddao.getBoardDetail(board_num);
 			
 		request.setAttribute("board", board);

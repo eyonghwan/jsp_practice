@@ -34,7 +34,8 @@ public class BoardDAO {
 		return boarddao;
 	}
 	
-	public List<BoardVO> getAllBoardList() {
+	// 페이징 처리를 위해 페이지 번호를 추가로 입력받습니다.
+	public List<BoardVO> getAllBoardList(int pageNum) {
 		// try블럭 진입 전 Connection, PreparedStatement, ResultSet 서언
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -44,9 +45,11 @@ public class BoardDAO {
 		try {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
 			con = ds.getConnection();
+			int limitNum = (pageNum - 1) * 10;
 			
-			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC";
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ?,20";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, limitNum);
 			
 			rs = pstmt.executeQuery();
 			
@@ -117,7 +120,6 @@ public class BoardDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		BoardVO boarddata = null;
-		upHit(board_num);
 		try {
 			con = ds.getConnection();
 			
@@ -205,7 +207,7 @@ public class BoardDAO {
 		}
 	}
 
-	private void upHit(int board_num) {
+	public void upHit(int board_num) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -220,7 +222,7 @@ public class BoardDAO {
 			pstmt.executeUpdate();
 			
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		} finally {
 			try {
 				con.close();
@@ -232,4 +234,36 @@ public class BoardDAO {
 		System.out.println("현재 조회된 글 번호 : " + board_num);
 		
 	}
+
+	// 페이징 처리를 위해 글 전체 개수를 구해오겠습니다.
+	public int getPageNum() {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = "SELECT COUNT(*) FROM boardTbl";
+		int pageNum = 0;
+		try {
+			con = ds.getConnection();
+			
+			pstmt = con.prepareStatement(sql);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				pageNum = rs.getInt(1);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				con.close();
+				pstmt.close();
+			} catch(SQLException se) {
+				se.printStackTrace();
+			}
+		}
+		return pageNum;
+	}
+	
 }
