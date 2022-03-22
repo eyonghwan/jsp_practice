@@ -13,8 +13,8 @@ public class BoardDTO {
 	private int totalPages; // 전체페이지 개수
 	private int startPage; // 시작페이지 번호
 	private int endPage; // 끝 페이지 번호
-	private static final int NAV_NUM = 5; // 페이지는 10개씩 링크표시(하단에 깔릴 버튼은 10개씩)
-	private static final int BOARD_NUM = 20; // 글도 10개씩 표시(DAO의 limit 구문도 함께 수정해야함)
+	private static final int NAV_NUM = 10; // 페이지는 10개씩 링크표시(하단에 깔릴 버튼은 10개씩)
+	private static final int BOARD_NUM = 10; // 글도 10개씩 표시(DAO의 limit 구문도 함께 수정해야함)
 	
 	// 생성자 생성시 모든 정보를 자동으로 구하도록 처리
 	public BoardDTO(int boardCount, int currentPage) {
@@ -70,6 +70,10 @@ public class BoardDTO {
 	// 해당 페이지 그룹의 끝페이지
 	public int getEndPage() {
 		return endPage;
+	}
+	
+	public int getcurrentPage() {
+		return currentPage;
 	}
 	
 	// 디버깅을 위한 toString

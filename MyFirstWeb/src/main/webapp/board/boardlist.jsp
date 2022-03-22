@@ -50,5 +50,32 @@
 		<a href="http://localhost:8181/MyFirstWeb/insertForm.do">글쓰기</a>
 	</c:if>
 	${dto }
+	
+	
+	<nav aria-label="Page navigation example">
+	  <ul class="pagination justify-content-center">
+		<c:if test="${dto.startPage ne 1}">
+			<li class="page-item">
+	    		<a class="page-link" href="boardList.do?pageNum=${dto.startPage-10 }">이전</a>
+	    	</li>
+	    </c:if>
+	    	<c:forEach var="pageIndex" begin="${dto.startPage }" end="${dto.endPage }">
+		    	<li class="page-item ${dto.currentPage eq pageIndex ? 'active' : ''}">
+		    		<a class="page-link" href="boardList.do?pageNum=${pageIndex }">${pageIndex }</a>
+		    	</li>
+	    	</c:forEach>
+	    <c:if test="${dto.totalPages > dto.endPage }">
+		    	<li class="page-item">
+		     		 <a class="page-link" href="boardList.do?pageNum=${dto.endPage+1 }">다음</a>
+	    		</li>
+	    </c:if>
+	  </ul>
+	</nav>
+	
+	<h3>부트스트랩 없이 만들기</h3>
+		
+		<c:forEach var="pageIndex" begin="${dto.startPage }" end="${dto.endPage }">
+			<a href="boardList.do?pageNum=${pageIndex }">[${pageIndex }]</a>
+		</c:forEach>
 </body>
 </html>

@@ -40,18 +40,20 @@ public class BoardDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		final int BOARD_COUNT = 10;
 		// try블럭 진입 전에 ArrayList 선언
 		ArrayList<BoardVO> boardList = new ArrayList<>();
 		try {
 			// Connection, PreparedStatement, ResultSet을 선언합니다.
 			con = ds.getConnection();
-			int limitNum = (pageNum - 1) * 10;
+			int limitNum = (pageNum - 1) * BOARD_COUNT;
 			
 
-			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ?,20";
+			String sql = "SELECT * FROM boardTbl ORDER BY board_num DESC limit ?,?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, limitNum);
+			pstmt.setInt(2, BOARD_COUNT);
 			
 			rs = pstmt.executeQuery();
 			
